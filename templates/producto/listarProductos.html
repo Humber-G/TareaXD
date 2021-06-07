@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %} {% block contenido %}
+
+<section>
+  <h1>Productos</h1>
+  <div class="row">
+    <a href="{% url 'agregarProducto' %}" class="btn btn-primary">Agregar</a>
+  </div>
+  <br />
+  <div class="row table-responsive">
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Codigo de Barra</th>
+          <th>Categoria</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+        <tr>
+          <td>{{ producto.nombre_producto }}</td>
+          <td>{{ producto.precio_producto }}</td>
+          <td>{{ producto.codigo_barra }}</td>
+          <td>{{ producto.categoria_uno_muchos.nombre_categoria }}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <a
+                class="btn btn-outline-danger"
+                href="{% url 'eliminar' idProducto=producto.id %}"
+                onclick="return window.confirm('Desea eliminar el producto {{ producto.nombre_producto }}')"
+              >
+                <i class="bi bi-trash"></i>
+              </a>
+              <a
+                class="btn btn-outline-primary"
+                href="{% url 'edicion' idProducto=producto.id %}"
+              >
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+              <a
+                class="btn btn-outline-success"
+                href="{% url 'buscarProducto' idProducto=producto.id %}"
+              >
+                <i class="bi bi-eye-fill"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock contenido %}

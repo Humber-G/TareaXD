@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %} {% block contenido %}
+
+<section>
+  <h1>Categorias</h1>
+  <div class="row">
+    <a href="{% url 'agregarCategoria' %}" class="btn btn-primary">Agregar</a>
+  </div>
+  <br />
+  <div class="row table-responsive">
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for categoria in categorias %}
+        <tr>
+          <td>{{ categoria.nombre_categoria }}</td>
+          <td>{{ categoria.descripcion_categoria }}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <a
+                class="btn btn-outline-danger"
+                href="{% url 'eliminar' idCategoria=categoria.id %}"
+                onclick="return window.confirm('Desea eliminar la nota {{ nota.titulo_nota }}')"
+              >
+                <i class="bi bi-trash"></i>
+              </a>
+              <a
+                class="btn btn-outline-primary"
+                href="{% url 'edicion' idCategoria=categoria.id %}"
+              >
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+              <a
+                class="btn btn-outline-success"
+                href="{% url 'buscarCategoria' idCategoria=categoria.id %}"
+              >
+                <i class="bi bi-eye-fill"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock contenido %}
